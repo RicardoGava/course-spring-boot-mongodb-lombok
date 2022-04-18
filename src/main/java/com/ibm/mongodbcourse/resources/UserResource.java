@@ -1,5 +1,6 @@
 package com.ibm.mongodbcourse.resources;
 
+import com.ibm.mongodbcourse.domain.Post;
 import com.ibm.mongodbcourse.domain.User;
 import com.ibm.mongodbcourse.dto.UserDTO;
 import com.ibm.mongodbcourse.services.UserService;
@@ -56,5 +57,11 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
